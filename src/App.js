@@ -7,7 +7,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header-component';
 import SignInAndSignUp from './pages/signIn-and-signUp/signIn-and-signUp';
-import { auth } from './firebase/firebaseutils';
+import { auth, createUserProfileDocument } from './firebase/firebaseutils';
 
 function HatsPage() {
   return (
@@ -27,10 +27,17 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (!userAuth) {
+        this.setState({ currentUser: null });
+        return;
+      };
       
-      console.log(user);
+      const userRef = await createUserProfileDocument(userAuth);
+      userRef.onSnapshot(snapshot => {
+        let currentUser = { id: snapshot.id, ...snapshot.data() };
+        this.setState({ currentUser });
+      });
     });
   }
 

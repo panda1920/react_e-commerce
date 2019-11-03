@@ -14,7 +14,7 @@ function FormInput({handleChange, label, ...otherProps}) {
 function createLabelElement(_label, otherProps) {
   if (_label) {
     return (
-      <label className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>
+      <label className={`${otherProps.value ? 'shrink' : ''} form-input-label`}>
         {_label}
       </label>
     );
