@@ -17,10 +17,11 @@ function CollectionPreview({ title, items }) {
 
 function renderNItems(n, items) {
   return (
-    items.filter((item, idx) => idx < n)
-          .map(
-            ({id, ...otherProps}) => <CollectionItem key={id} {...otherProps} />
-          )
+    items
+      .filter((item, idx) => idx < n)
+      .map(
+        (item) => <CollectionItem key={item.id} item={item} />
+      )
   );
 }
 
