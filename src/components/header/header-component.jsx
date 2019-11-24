@@ -8,6 +8,8 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebaseutils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCurrentUser } from '../../redux/user/user.selector';
+import { selectHidden } from '../../redux/cart/cart.selectors';
 
 function Header({ currentUser, hidden }) {
   return (
@@ -38,10 +40,10 @@ function Header({ currentUser, hidden }) {
   );
 }
 
-function mapStateToProps({ user: { currentUser }, cart: { hidden } }) {
+function mapStateToProps(state) {
   return {
-    currentUser,
-    hidden,
+    currentUser: selectCurrentUser(state),
+    hidden: selectHidden(state),
   };
 }
 

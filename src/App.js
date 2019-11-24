@@ -10,6 +10,7 @@ import Header from './components/header/header-component';
 import SignInAndSignUpPage from './pages/signIn-and-signUp/signIn-and-signUp';
 import { auth, createUserProfileDocument } from './firebase/firebaseutils';
 import { setCurrentUser } from './redux/user/user.action';
+import { selectCurrentUser } from './redux/user/user.selector';
 
 function HatsPage() {
   return (
@@ -69,9 +70,9 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps({ user }) {
+function mapStateToProps(state) {
   return {
-    currentUser: user.currentUser
+    currentUser: selectCurrentUser(state)
   };
 }
 
