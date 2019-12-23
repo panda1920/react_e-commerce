@@ -10,7 +10,7 @@ function CollectionsOverview({ collections }) {
   return (
     <div className='collections-overview'>
       {
-        Object.values(collections).map(
+        collections.map(
           ({id, ...otherCollectionProps}) => <CollectionPreview key={id} {...otherCollectionProps}/>
         )
       }
@@ -20,7 +20,7 @@ function CollectionsOverview({ collections }) {
 
 function mapStateToProps(state) {
   return {
-    collections: selectCollections(state)
+    collections: Object.values( selectCollections(state) )
   };
 }
 
