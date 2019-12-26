@@ -1,4 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The current state of deployed code is [here](https://crwn-deploy.herokuapp.com/).
 
 ## Technologies involved
 ### Frontend
