@@ -1,11 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Technologies involved
-# Frontend
+### Frontend
 - React
 - Redux
 - Sass
-# backend
+### backend
 - Firebase
 
 ## Available Scripts
