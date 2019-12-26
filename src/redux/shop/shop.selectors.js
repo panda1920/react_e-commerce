@@ -6,12 +6,13 @@ function selectShop(state) {
 
 export const selectCollections = createSelector(
   [selectShop],
-  shop => shop.collections
+  shop => shop.collections ? Object.values(shop.collections) : []
 )
 
 export function selectCollection(collectionName) {
+  console.log(`#########${collectionName}#################`)
   return createSelector(
-    [selectCollections],
-    collections => collections[collectionName]
+    [selectShop],
+    shop => (shop.collections ? shop.collections[collectionName] : null)
   );
 }

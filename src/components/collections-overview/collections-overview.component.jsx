@@ -20,7 +20,7 @@ function CollectionsOverview({ collections }) {
 
 function mapStateToProps(state) {
   return {
-    collections: Object.values( selectCollections(state) )
+    collections: selectCollections(state)
   };
 }
 
