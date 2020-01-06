@@ -1,12 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
 import './sign-in.styles.scss';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, signInWithGoogle } from '../../firebase/firebaseutils';
 
-export default class SignIn extends React.Component {
+import { googleSigninStart, emailSigninStart } from '../../redux/user/user.action';
+
+class SignIn extends React.Component {
   constructor() {
     super();
 
@@ -19,14 +21,10 @@ export default class SignIn extends React.Component {
   submitHandler = async (event) => {
     event.preventDefault();
 
-    const { email, password } = this.state;
+    const { emailSigninStart } = this.props;
+    emailSigninStart(this.state);
 
-    try {
-      auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
-    } catch (error) {
-      console.log(error);
-    }
+    this.setState({ email: '', password: '' });
   }
 
   changeHandler = (event) => {
@@ -37,6 +35,7 @@ export default class SignIn extends React.Component {
   }
 
   render() {
+    const { googleSigninStart } = this.props;
     return (
       <div className='sign-in'>
         <h2>I have account</h2>
@@ -61,10 +60,19 @@ export default class SignIn extends React.Component {
           />
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
-            <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign In With Google </CustomButton>
+            <CustomButton type='button' onClick={googleSigninStart} isGoogleSignIn> Sign In With Google </CustomButton>
           </div>
         </form>
       </div>
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    googleSigninStart: () => dispatch(googleSigninStart()),
+    emailSigninStart: ({ email, password }) => dispatch(emailSigninStart({ email, password })),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(SignIn);

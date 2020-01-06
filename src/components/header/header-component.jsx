@@ -5,13 +5,14 @@ import './header.styles.scss';
 import { HeaderContainer, LogoContainer, OptionsContainer, OptionLink, OptionDiv } from './header.styles';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import { auth } from '../../firebase/firebaseutils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { selectHidden } from '../../redux/cart/cart.selectors';
 
-function Header({ currentUser, hidden }) {
+import { signoutStart } from '../../redux/user/user.action';
+
+function Header({ currentUser, hidden, signoutStart }) {
   return (
     <HeaderContainer>
       <LogoContainer to='/'>
@@ -26,7 +27,7 @@ function Header({ currentUser, hidden }) {
         </OptionLink>
         {
           currentUser ? (
-            <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+            <OptionDiv onClick={signoutStart}>SIGN OUT</OptionDiv>
           ) : (
             <OptionLink to='/signin'>SIGN IN</OptionLink>
           )
@@ -47,4 +48,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch) {
+  return {
+    signoutStart: () => dispatch(signoutStart())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

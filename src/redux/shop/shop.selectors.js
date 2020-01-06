@@ -10,9 +10,13 @@ export const selectCollections = createSelector(
 )
 
 export function selectCollection(collectionName) {
-  console.log(`#########${collectionName}#################`)
   return createSelector(
     [selectShop],
     shop => (shop.collections ? shop.collections[collectionName] : null)
   );
 }
+
+export const selectIsFetching = createSelector(
+  [selectShop],
+  shop => shop.isFetching
+);
