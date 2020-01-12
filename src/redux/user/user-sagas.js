@@ -99,7 +99,7 @@ export function* onSignupStart() {
 export function* signup({ payload: userInfo }) {
   try {
     const { displayName, email, password } = userInfo;
-    const userAuth = yield auth.createUserWithEmailAndPassword(email, password);
+    const { user: userAuth } = yield auth.createUserWithEmailAndPassword(email, password);
     yield createUserProfileDocument(userAuth, { displayName });
     yield put( signupSuccess() );
     yield signInWithUserAuth(userAuth);
